@@ -12,7 +12,7 @@ const Box = (props) => {
       onClick={handleClick}
       disabled={!enabled}
     >
-      {props.title}
+      {!enabled && props.title}
       {props.isBomb && !enabled && (
         <img
           src={require("../mine.png")}

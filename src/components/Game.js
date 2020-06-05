@@ -37,7 +37,48 @@ const Game = () => {
     }
   };
 
-  const setLabels = () => {};
+  const setLabels = () => {
+    for (let h = 0; h < height; h++) {
+      for (let w = 0; w < width; w++) {
+        let value = 0;
+        if (!grid[h][w].isBomb) {
+          // up
+          if (h > 0 && grid[h - 1][w].isBomb) {
+            value++;
+          }
+          // up left
+          if (h > 0 && w > 0 && grid[h - 1][w - 1].isBomb) {
+            value++;
+          }
+          // up right
+          if (h > 0 && w < width - 1 && grid[h - 1][w + 1].isBomb) {
+            value++;
+          }
+          // right
+          if (w < width - 1 && grid[h][w + 1].isBomb) {
+            value++;
+          }
+          // right down
+          if (h < height - 1 && w < width - 1 && grid[h + 1][w + 1].isBomb) {
+            value++;
+          }
+          // down
+          if (h < height - 1 && grid[h + 1][w].isBomb) {
+            value++;
+          }
+          // left down
+          if (h < height - 1 && w > 0 && grid[h + 1][w - 1].isBomb) {
+            value++;
+          }
+          // left
+          if (w > 0 && grid[h][w - 1].isBomb) {
+            value++;
+          }
+          grid[h][w].value = value;
+        }
+      }
+    }
+  };
 
   const buildGame = () => {
     initBoxes();
