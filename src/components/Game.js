@@ -2,11 +2,10 @@ import React from "react";
 import Box from "./Box";
 import { Container, Grid } from "@material-ui/core";
 
-const Game = () => {
-  const width = 3;
-  const height = 4;
-  const bombs = 5;
-  const boxes = Array(width * height);
+const Game = ({ game }) => {
+  const width = game.width;
+  const height = game.height;
+  const bombs = game.bombs;
   const grid = [];
 
   const initBoxes = () => {

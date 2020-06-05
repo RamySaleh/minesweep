@@ -4,17 +4,35 @@ import "./App.css";
 import Header from "./components/Header";
 
 function App() {
-  const [gameId, setGameId] = useState(0);
+  const initialGame = {
+    id: 0,
+    width: 4,
+    height: 4,
+    bombs: 5,
+  };
 
-  const handleNewGameClick = () => {
-    setGameId(gameId + 1);
+  const [game, setGame] = useState(initialGame);
+
+  const handleNewGameClick = (preset) => {
+    const newGame = {};
+    newGame.id = game.id + 1;
+    if (preset.type === "1") {
+      newGame.width = initialGame.width * preset.level;
+      newGame.height = initialGame.height * preset.level;
+      newGame.bombs = initialGame.bombs * preset.level;
+    } else {
+      newGame.width = preset.width;
+      newGame.height = preset.height;
+      newGame.bombs = preset.bombs;
+    }
+    setGame(newGame);
   };
 
   return (
     <div className="App">
       <p>Minesweep game</p>
       <Header onNewGameClick={handleNewGameClick}></Header>
-      <Game key={gameId}></Game>
+      <Game key={game.id} game={game}></Game>
     </div>
   );
 }
