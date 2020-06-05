@@ -14,47 +14,31 @@ const Game = () => {
       boxes[i] = {
         id: i,
         value: "",
+        isBomb: false,
       };
     }
   };
   const initBombs = () => {
     for (let i = 0; i < bombs; i++) {
       let random = undefined;
-      while (!random || boxes[random].value === "b") {
+      while (!random || boxes[random].isBomb) {
         random = Math.floor(Math.random() * boxes.length);
       }
-      boxes[random].value = "b";
+      boxes[random].isBomb = true;
     }
-  };
-
-  const initUIGrid = () => {
-    const items = [];
-    let row = [];
-    let i = 0;
-    while (i < boxes.length) {
-      if ((i % width == 0) & (i != 0)) {
-        items.push(row);
-        row = [];
-      }
-      row.push(boxes[i]);
-      i++;
-    }
-    items.push(row);
-    return items;
   };
 
   const buildGame = () => {
     initBoxes();
     initBombs();
-    const items = initUIGrid();
 
     return (
-      <Container style={{ display: "block" }}>
-        <Grid container direction="row" spacing={0} justify="flex-start">
-          {boxes.map((item) => {
+      <Container style={{ width: 300 }}>
+        <Grid container direction="row">
+          {boxes.map((box) => {
             return (
-              <Grid item xs="3">
-                <Box title={item.value} key={item.id}></Box>
+              <Grid box xs="3">
+                <Box title={box.value} key={box.id} isBomb={box.isBomb}></Box>
               </Grid>
             );
           })}
