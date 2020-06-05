@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "./Box";
 
-const Game = ({ game }) => {
+const Game = ({ game, onGameEnd }) => {
   const width = game.width;
   const height = game.height;
   const bombs = game.bombs;

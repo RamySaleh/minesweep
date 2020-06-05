@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import Header from "./Header";
+import Footer from "./Footer";
 import Game from "./Game";
 import "../App.css";
-import Header from "./Header";
 import * as Constants from "../constants";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   };
 
   const [game, setGame] = useState(initialGame);
+  const [gameStatus, setGameStatus] = useState(Constants.GameStatusInitial);
 
   const handleNewGameClick = (preset) => {
     const newGame = {};
@@ -29,11 +31,20 @@ function App() {
     setGame(newGame);
   };
 
+  const handleEndGame = (isGameWon) => {
+    if (isGameWon) {
+      setGameStatus(Constants.GameStatusWon);
+    } else {
+      setGameStatus(Constants.GameStatusLost);
+    }
+  };
+
   return (
     <div className="App">
       <p>Minesweep game</p>
       <Header onNewGameClick={handleNewGameClick}></Header>
-      <Game key={game.id} game={game}></Game>
+      <Game key={game.id} game={game} onGameEnd={handleEndGame}></Game>
+      <Footer gameStatus={gameStatus}></Footer>
     </div>
   );
 }
