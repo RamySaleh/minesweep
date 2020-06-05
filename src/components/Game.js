@@ -6,45 +6,55 @@ const Game = () => {
   const width = 3;
   const height = 4;
   const bombs = 5;
-  //const boxes = [];
   const boxes = Array(width * height);
+  const grid = [];
 
   const initBoxes = () => {
-    for (let i = 0; i < boxes.length; i++) {
-      boxes[i] = {
-        id: i,
-        value: "",
-        isBomb: false,
-      };
+    let i = 0;
+    for (let h = 0; h < height; h++) {
+      const row = [];
+      for (let w = 0; w < width; w++) {
+        row.push({
+          id: i,
+          value: "",
+          isBomb: false,
+        });
+        i++;
+      }
+      grid.push(row);
     }
   };
+
   const initBombs = () => {
     for (let i = 0; i < bombs; i++) {
-      let random = undefined;
-      while (!random || boxes[random].isBomb) {
-        random = Math.floor(Math.random() * boxes.length);
+      let randX = undefined;
+      let randY = undefined;
+      while (!randX || grid[randY][randX].isBomb) {
+        randX = Math.floor(Math.random() * width);
+        randY = Math.floor(Math.random() * height);
       }
-      boxes[random].isBomb = true;
+      grid[randY][randX].isBomb = true;
     }
   };
+
+  const setLabels = () => {};
 
   const buildGame = () => {
     initBoxes();
     initBombs();
+    setLabels();
 
-    return (
-      <Container style={{ width: 300 }}>
-        <Grid container direction="row">
-          {boxes.map((box) => {
+    return grid.map((row) => {
+      return (
+        <div>
+          {row.map((box) => {
             return (
-              <Grid box xs="3">
-                <Box title={box.value} key={box.id} isBomb={box.isBomb}></Box>
-              </Grid>
+              <Box title={box.value} key={box.id} isBomb={box.isBomb}></Box>
             );
           })}
-        </Grid>
-      </Container>
-    );
+        </div>
+      );
+    });
   };
 
   return buildGame();
