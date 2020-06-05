@@ -1,6 +1,5 @@
 import React from "react";
 import Box from "./Box";
-import { Container, Grid } from "@material-ui/core";
 
 const Game = ({ game }) => {
   const width = game.width;

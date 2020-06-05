@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import Game from "./components/Game";
-import "./App.css";
-import Header from "./components/Header";
+import Game from "./Game";
+import "../App.css";
+import Header from "./Header";
+import * as Constants from "../constants";
 
 function App() {
   const initialGame = {
@@ -16,7 +17,7 @@ function App() {
   const handleNewGameClick = (preset) => {
     const newGame = {};
     newGame.id = game.id + 1;
-    if (preset.type === "1") {
+    if (preset.type === Constants.GamePresetRegular) {
       newGame.width = initialGame.width * preset.level;
       newGame.height = initialGame.height * preset.level;
       newGame.bombs = initialGame.bombs * preset.level;

@@ -16,6 +16,7 @@ const Box = (props) => {
       {props.isBomb && !enabled && (
         <img
           src={require("../mine.png")}
+          alt="bomb"
           style={{ width: 25, height: 25 }}
         ></img>
       )}
