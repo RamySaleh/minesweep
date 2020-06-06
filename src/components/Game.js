@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Box from "./Box";
+import { useDispatch } from "react-redux";
+import * as gameStatusActions from "../actions/gameStatusActions";
+import * as Constants from "../constants";
 
 const Game = ({ game, onGameEnd }) => {
   const width = game.width;
@@ -8,11 +11,13 @@ const Game = ({ game, onGameEnd }) => {
   const grid = [];
 
   const [enabled, setEnabled] = useState(true);
+  //const dispatch = useDispatch();
 
   const handleBoxClick = (isBomb) => {
     if (isBomb) {
-      onGameEnd(false);
+      //onGameEnd(false);
       setEnabled(false);
+      //dispatch(gameStatusActions.gameStatusLost());
     }
   };
 
