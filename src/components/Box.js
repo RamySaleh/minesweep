@@ -9,7 +9,7 @@ const Box = (props) => {
   };
   return (
     <button
-      style={{ width: 40, height: 40 }}
+      style={{ width: 40, height: 40, verticalAlign: "top" }}
       onClick={handleClick}
       disabled={!enabled}
     >
