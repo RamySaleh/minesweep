@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "./Box";
 
 const Game = ({ game, onGameEnd }) => {
@@ -6,6 +6,15 @@ const Game = ({ game, onGameEnd }) => {
   const height = game.height;
   const bombs = game.bombs;
   const grid = [];
+
+  const [enabled, setEnabled] = useState(true);
+
+  const handleBoxClick = (isBomb) => {
+    if (isBomb) {
+      onGameEnd(false);
+      setEnabled(false);
+    }
+  };
 
   const initBoxes = () => {
     let i = 0;
@@ -88,7 +97,12 @@ const Game = ({ game, onGameEnd }) => {
         <div>
           {row.map((box) => {
             return (
-              <Box title={box.value} key={box.id} isBomb={box.isBomb}></Box>
+              <Box
+                title={box.value}
+                key={box.id}
+                isBomb={box.isBomb}
+                onClick={handleBoxClick}
+              ></Box>
             );
           })}
         </div>
@@ -96,7 +110,11 @@ const Game = ({ game, onGameEnd }) => {
     });
   };
 
-  return buildGame();
+  return (
+    <div style={enabled ? {} : { pointerEvents: "none", opacity: "0.4" }}>
+      {buildGame()}
+    </div>
+  );
 };
 
 export default Game;

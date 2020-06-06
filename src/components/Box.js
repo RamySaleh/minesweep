@@ -5,6 +5,7 @@ const Box = (props) => {
 
   const handleClick = () => {
     setEnabled(false);
+    props.onClick(props.isBomb);
   };
   return (
     <button
