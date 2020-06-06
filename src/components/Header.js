@@ -78,6 +78,7 @@ const Header = (props) => {
         >
           <text>w</text>
           <input
+            type="number"
             style={{ width: 40 }}
             text={width}
             onChange={({ target }) => handleTextChange(target.value, setWidth)}
@@ -85,6 +86,7 @@ const Header = (props) => {
 
           <text>h</text>
           <input
+            type="number"
             style={{ width: 40 }}
             text={height}
             onChange={({ target }) => handleTextChange(target.value, setheight)}
@@ -92,6 +94,7 @@ const Header = (props) => {
 
           <text>b</text>
           <input
+            type="number"
             style={{ width: 40 }}
             text={bombs}
             onChange={({ target }) => handleTextChange(target.value, setBombs)}
