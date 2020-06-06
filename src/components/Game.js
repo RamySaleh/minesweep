@@ -1,27 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "./Box";
 import { useDispatch } from "react-redux";
 import * as gameStatusActions from "../actions/gameStatusActions";
-import * as Constants from "../constants";
 
 const Game = ({ game, onGameEnd }) => {
   const width = game.width;
   const height = game.height;
   const bombs = game.bombs;
-  const grid = [];
 
   const [enabled, setEnabled] = useState(true);
-  //const dispatch = useDispatch();
+  const [grid, setGrid] = useState([]);
+
+  const dispatch = useDispatch();
 
   const handleBoxClick = (isBomb) => {
     if (isBomb) {
-      //onGameEnd(false);
       setEnabled(false);
-      //dispatch(gameStatusActions.gameStatusLost());
+      dispatch(gameStatusActions.gameStatusLost());
     }
   };
 
-  const initBoxes = () => {
+  useEffect(() => {
+    let grid = [];
+    initBoxes(grid);
+    initBombs(grid);
+    setLabels(grid);
+    setGrid(grid);
+  }, []);
+
+  const initBoxes = (grid) => {
     let i = 0;
     for (let h = 0; h < height; h++) {
       const row = [];
@@ -37,7 +44,7 @@ const Game = ({ game, onGameEnd }) => {
     }
   };
 
-  const initBombs = () => {
+  const initBombs = (grid) => {
     for (let i = 0; i < bombs; i++) {
       let randX = undefined;
       let randY = undefined;
@@ -49,7 +56,7 @@ const Game = ({ game, onGameEnd }) => {
     }
   };
 
-  const setLabels = () => {
+  const setLabels = (grid) => {
     for (let h = 0; h < height; h++) {
       for (let w = 0; w < width; w++) {
         let value = 0;
@@ -86,17 +93,13 @@ const Game = ({ game, onGameEnd }) => {
           if (w > 0 && grid[h][w - 1].isBomb) {
             value++;
           }
-          grid[h][w].value = value;
+          grid[h][w].value = value > 0 ? value : "";
         }
       }
     }
   };
 
-  const buildGame = () => {
-    initBoxes();
-    initBombs();
-    setLabels();
-
+  const renderGame = () => {
     return grid.map((row) => {
       return (
         <div>
@@ -117,7 +120,7 @@ const Game = ({ game, onGameEnd }) => {
 
   return (
     <div style={enabled ? {} : { pointerEvents: "none", opacity: "0.4" }}>
-      {buildGame()}
+      {renderGame()}
     </div>
   );
 };
