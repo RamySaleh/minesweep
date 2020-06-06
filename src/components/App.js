@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Game from "./Game";
+import { useDispatch } from "react-redux";
+import * as gameActions from "../actions/gameStatusActions";
 import "../App.css";
 import * as Constants from "../constants";
 
@@ -14,6 +16,7 @@ function App() {
   };
 
   const [game, setGame] = useState(initialGame);
+  const dispatch = useDispatch();
 
   const handleNewGameClick = (preset) => {
     const newGame = {};
@@ -28,13 +31,14 @@ function App() {
       newGame.bombs = preset.bombs;
     }
     setGame(newGame);
+    dispatch(gameActions.gameStart());
   };
 
   return (
     <div className="App">
       <p>Minesweep game</p>
       <Header onNewGameClick={handleNewGameClick}></Header>
-      <Game key={game.id} game={game}></Game>
+      {game.id > 0 && <Game key={game.id} game={game}></Game>}
       <Footer></Footer>
     </div>
   );

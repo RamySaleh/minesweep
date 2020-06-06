@@ -1,17 +1,25 @@
-export const gameStatusInitial = () => {
+import * as actions from "./actions";
+
+export const gameStart = () => {
   return {
-    type: "GAME_INITIAL",
+    type: actions.GAME_START,
   };
 };
 
-export const gameStatusWon = () => {
+export const gamePlaying = () => {
   return {
-    type: "GAME_WON",
+    type: actions.GAME_PLAYING,
   };
 };
 
-export const gameStatusLost = () => {
+export const gameWon = () => {
   return {
-    type: "GAME_LOST",
+    type: actions.GAME_WON,
+  };
+};
+
+export const gameLost = () => {
+  return {
+    type: actions.GAME_LOST,
   };
 };

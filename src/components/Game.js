@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Box from "./Box";
 import { useDispatch } from "react-redux";
-import * as gameStatusActions from "../actions/gameStatusActions";
+import * as gameActions from "../actions/gameStatusActions";
 
 const Game = ({ game, onGameEnd }) => {
   const width = game.width;
@@ -14,9 +14,10 @@ const Game = ({ game, onGameEnd }) => {
   const dispatch = useDispatch();
 
   const handleBoxClick = (isBomb) => {
+    dispatch(gameActions.gamePlaying());
     if (isBomb) {
       setEnabled(false);
-      dispatch(gameStatusActions.gameStatusLost());
+      dispatch(gameActions.gameLost());
     }
   };
 
