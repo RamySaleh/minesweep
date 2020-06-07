@@ -42,7 +42,7 @@ const Footer = () => {
       case constants.GameStatusStart:
         return "Click on a box to start";
       case constants.GameStatusPlaying:
-        return "Playing";
+        return "";
       case constants.GameStatusWon:
         return "You Won";
       case constants.GameStatusLost:

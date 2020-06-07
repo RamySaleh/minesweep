@@ -8,6 +8,9 @@ import { useDispatch } from "react-redux";
 import * as gameActions from "../actions/gameStatusActions";
 import "../App.css";
 import * as Constants from "../constants";
+import IconButton from "@material-ui/core/IconButton";
+import PlayArrow from "@material-ui/icons/PlayArrow";
+import Pause from "@material-ui/icons/Pause";
 
 function App() {
   const initialGame = {
@@ -18,6 +21,12 @@ function App() {
   };
 
   const [game, setGame] = useState(initialGame);
+  const [playMusic, setPlayMusic] = useState(true);
+
+  const handleMusicClick = (play) => {
+    setPlayMusic(play);
+  };
+
   const dispatch = useDispatch();
 
   const handleNewGameClick = (preset) => {
@@ -35,15 +44,6 @@ function App() {
     setGame(newGame);
     dispatch(gameActions.gameStart());
   };
-
-  const playlist = [
-    {
-      url:
-        "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/62576046&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
-      title: "",
-      artist: [""],
-    },
-  ];
 
   return (
     <div className="App">
@@ -75,9 +75,20 @@ function App() {
         url="https://soundcloud.com/relaxdaily/relaxing-music-calm-studying-yoga"
         width={100}
         height={100}
-        playing={true}
+        playing={playMusic}
         style={{ position: "absolute", bottom: 0, opacity: 0 }}
       />
+
+      <IconButton
+        color="primary"
+        component="span"
+        style={{ position: "absolute", top: 70, left: 0 }}
+        onClick={() => {
+          handleMusicClick(!playMusic);
+        }}
+      >
+        {playMusic ? <Pause /> : <PlayArrow />}
+      </IconButton>
     </div>
   );
 }
