@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from "react";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import { useSelector } from "react-redux";
 import * as constants from "../constants";
 
 const Footer = () => {
   const gameStatus = useSelector((state) => state.gameStatusReducer);
   const [timer, setTimer] = useState(0);
+  const [open, setOpen] = useState(false);
+
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   useEffect(() => {
     if (gameStatus === constants.GameStatusStart) {
@@ -13,6 +27,8 @@ const Footer = () => {
       setTimeout(() => {
         setTimer(timer + 1);
       }, 1000);
+    } else if (gameStatus === constants.GameStatusLost) {
+      setOpen(true);
     }
   }, [timer, gameStatus]);
 
@@ -56,12 +72,24 @@ const Footer = () => {
     }
   };
 
+  const isGameWon = () => {
+    return gameStatus === constants.GameStatusWon;
+  };
+
   return (
     <div>
       <text style={{ color: textColor() }}>{getText()}</text>
       {showTimer() && (
         <text style={{ marginLeft: 20 }}>{formatTime(timer)}</text>
       )}
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity={isGameWon() ? "success" : "error"}
+        >
+          {getText()}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
