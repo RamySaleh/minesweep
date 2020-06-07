@@ -1,21 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import * as constants from "../constants";
 
 const Footer = () => {
   const gameStatus = useSelector((state) => state.gameStatusReducer);
-  switch (gameStatus) {
-    case constants.GameStatusStart:
-      return <text>Click on a box to start</text>;
-    case constants.GameStatusPlaying:
-      return <text>Playing</text>;
-    case constants.GameStatusWon:
-      return <text>You Won</text>;
-    case constants.GameStatusLost:
-      return <text style={{ color: "red" }}>You Lost</text>;
-    default:
-      return <text>Choose a preset to start a new game</text>;
-  }
+
+  const getText = () => {
+    switch (gameStatus) {
+      case constants.GameStatusStart:
+        return "Click on a box to start";
+      case constants.GameStatusPlaying:
+        return "Playing";
+      case constants.GameStatusWon:
+        return "You Won";
+      case constants.GameStatusLost:
+        return "You Lost";
+      default:
+        return "Choose a preset to start a new game";
+    }
+  };
+
+  return (
+    <div>
+      <text>{getText()}</text>
+      <text></text>
+    </div>
+  );
 };
 
 export default Footer;
