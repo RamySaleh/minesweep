@@ -124,17 +124,17 @@ const Game = ({ game, onGameEnd }) => {
     <>
       <div style={{ display: "flex", justifyContent: "center", margin: 10 }}>
         <HeightIcon></HeightIcon>
-        <text>{game.height}</text>
+        <text style={{ marginLeft: 5 }}>{game.height}</text>
         <HeightIcon
           style={{ transform: "rotate(90deg)", marginLeft: 20 }}
-        ></HeightIcon>{" "}
-        <text>{game.width}</text>
+        ></HeightIcon>
+        <text style={{ marginLeft: 5 }}>{game.width}</text>
         <img
           src={require("../mine.png")}
           alt="bomb"
           style={{ width: 20, height: 20, marginLeft: 20 }}
         ></img>
-        <text>{game.bombs}</text>
+        <text style={{ marginLeft: 5 }}>{game.bombs}</text>
       </div>
       <div style={enabled ? {} : { pointerEvents: "none", opacity: "0.4" }}>
         {renderGame()}

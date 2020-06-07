@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import HeightIcon from "@material-ui/icons/Height";
 import * as Constants from "../constants";
 
 const Header = (props) => {
@@ -76,7 +77,7 @@ const Header = (props) => {
             margin: 10,
           }}
         >
-          <text>w</text>
+          <HeightIcon></HeightIcon>
           <input
             type="number"
             style={{ width: 40 }}
@@ -84,7 +85,7 @@ const Header = (props) => {
             onChange={({ target }) => handleTextChange(target.value, setWidth)}
           ></input>
 
-          <text>h</text>
+          <HeightIcon style={{ transform: "rotate(90deg)" }}></HeightIcon>
           <input
             type="number"
             style={{ width: 40 }}
@@ -92,7 +93,11 @@ const Header = (props) => {
             onChange={({ target }) => handleTextChange(target.value, setheight)}
           ></input>
 
-          <text>b</text>
+          <img
+            src={require("../mine.png")}
+            alt="bomb"
+            style={{ width: 20, height: 20 }}
+          ></img>
           <input
             type="number"
             style={{ width: 40 }}
