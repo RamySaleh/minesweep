@@ -48,7 +48,7 @@ const Header = (props) => {
               level: 2,
             })
           }
-          style={{ marginRight: 10, backgroundColor: "sandybrown" }}
+          style={{ marginRight: 10, backgroundColor: "#6FC2EE" }}
         >
           Intermediate
         </Button>
@@ -60,13 +60,13 @@ const Header = (props) => {
               level: 3,
             })
           }
-          style={{ marginRight: 10, backgroundColor: "sandybrown" }}
+          style={{ marginRight: 10, backgroundColor: "#6FC2EE" }}
         >
           Expert
         </Button>
         <Button
           variant="outlined"
-          style={{ backgroundColor: "sandybrown" }}
+          style={{ backgroundColor: "#6FC2EE" }}
           onClick={() => {
             setIsCustom(true);
           }}
