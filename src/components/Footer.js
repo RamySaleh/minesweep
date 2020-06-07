@@ -4,7 +4,6 @@ import * as constants from "../constants";
 
 const Footer = () => {
   const gameStatus = useSelector((state) => state.gameStatusReducer);
-  const gameInProgress = gameStatus === constants.GameStatusPlaying;
   const [timer, setTimer] = useState(0);
 
   useEffect(() => {
@@ -32,16 +31,37 @@ const Footer = () => {
     }
   };
 
+  const showTimer = () => {
+    return [
+      constants.GameStatusPlaying,
+      constants.GameStatusLost,
+      constants.GameStatusWon,
+    ].includes(gameStatus);
+  };
+
   const formatTime = (seconds) => {
     return [parseInt((seconds / 60) % 60), parseInt(seconds % 60)]
       .join(":")
       .replace(/\b(\d)\b/g, "0$1");
   };
 
+  const textColor = () => {
+    switch (gameStatus) {
+      case constants.GameStatusWon:
+        return "Green";
+      case constants.GameStatusLost:
+        return "Red";
+      default:
+        return "Black";
+    }
+  };
+
   return (
     <div>
-      <text>{getText()}</text>
-      <text style={{ marginLeft: 20 }}>{formatTime(timer)}</text>
+      <text style={{ color: textColor() }}>{getText()}</text>
+      {showTimer() && (
+        <text style={{ marginLeft: 20 }}>{formatTime(timer)}</text>
+      )}
     </div>
   );
 };

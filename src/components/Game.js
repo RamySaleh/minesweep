@@ -136,7 +136,7 @@ const Game = ({ game, onGameEnd }) => {
         ></img>
         <text style={{ marginLeft: 5 }}>{game.bombs}</text>
       </div>
-      <div style={enabled ? {} : { pointerEvents: "none", opacity: "0.4" }}>
+      <div style={enabled ? {} : { pointerEvents: "none", opacity: "0.6" }}>
         {renderGame()}
       </div>
     </>
