@@ -3,6 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Game from "./Game";
 import Collapse from "@material-ui/core/Collapse";
+import ReactPlayer from "react-player";
 import { useDispatch } from "react-redux";
 import * as gameActions from "../actions/gameStatusActions";
 import "../App.css";
@@ -35,6 +36,15 @@ function App() {
     dispatch(gameActions.gameStart());
   };
 
+  const playlist = [
+    {
+      url:
+        "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/62576046&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true",
+      title: "",
+      artist: [""],
+    },
+  ];
+
   return (
     <div className="App">
       <p
@@ -60,7 +70,14 @@ function App() {
       <Collapse in={game.id > 0}>
         <Game key={game.id} game={game}></Game>
       </Collapse>
-      <Footer></Footer>
+      <Footer />
+      <ReactPlayer
+        url="https://soundcloud.com/relaxdaily/relaxing-music-calm-studying-yoga"
+        width={100}
+        height={100}
+        playing={true}
+        style={{ position: "absolute", bottom: 0, opacity: 0 }}
+      />
     </div>
   );
 }
