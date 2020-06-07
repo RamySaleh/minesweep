@@ -16,8 +16,8 @@ const Box = (props) => {
         width: 40,
         height: 40,
         verticalAlign: "top",
-        color: "grey",
-        backgroundColor: enabled ? "palegoldenrod" : "khaki",
+        color: "#0E547B",
+        backgroundColor: enabled ? "#8FCEEF" : "#6FC2EE",
       }}
       onClick={handleClick}
       disabled={!enabled}

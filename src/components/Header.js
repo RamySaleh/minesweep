@@ -36,7 +36,7 @@ const Header = (props) => {
               level: 1,
             })
           }
-          style={{ marginRight: 10, backgroundColor: "sandybrown" }}
+          style={{ marginRight: 10, backgroundColor: "#6FC2EE" }}
         >
           Beginner
         </Button>

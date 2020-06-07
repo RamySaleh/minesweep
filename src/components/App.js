@@ -42,9 +42,9 @@ function App() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          color: "saddlebrown",
+          color: "#0E547B",
           height: 50,
-          backgroundColor: "burlywood",
+          backgroundColor: "#8FCEEF",
           fontSize: 20,
           fontWeight: "bold",
         }}
