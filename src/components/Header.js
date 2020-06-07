@@ -111,6 +111,7 @@ const Header = (props) => {
             style={{ width: 40 }}
             text={bombs}
             min={1}
+            max={(width * height) / 2}
             onChange={({ target }) => handleTextChange(target.value, setBombs)}
           ></input>
 
