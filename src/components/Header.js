@@ -38,7 +38,7 @@ const Header = (props) => {
           }
           style={{ marginRight: 10, backgroundColor: "#6FC2EE" }}
         >
-          Beginner
+          Easy
         </Button>
         <Button
           variant="outlined"
@@ -50,7 +50,7 @@ const Header = (props) => {
           }
           style={{ marginRight: 10, backgroundColor: "#6FC2EE" }}
         >
-          Intermediate
+          Medium
         </Button>
         <Button
           variant="outlined"
@@ -62,7 +62,7 @@ const Header = (props) => {
           }
           style={{ marginRight: 10, backgroundColor: "#6FC2EE" }}
         >
-          Expert
+          Hard
         </Button>
         <Button
           variant="outlined"

@@ -21,7 +21,7 @@ function App() {
   };
 
   const [game, setGame] = useState(initialGame);
-  const [playMusic, setPlayMusic] = useState(true);
+  const [playMusic, setPlayMusic] = useState(false);
 
   const handleMusicClick = (play) => {
     setPlayMusic(play);
