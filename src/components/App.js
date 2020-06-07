@@ -37,7 +37,25 @@ function App() {
 
   return (
     <div className="App">
-      <p>Minesweep game</p>
+      <p
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "saddlebrown",
+          height: 50,
+          backgroundColor: "burlywood",
+          fontSize: 20,
+          fontWeight: "bold",
+        }}
+      >
+        <img
+          src={require("../mine.png")}
+          alt="bomb"
+          style={{ width: 20, height: 20, marginRight: 10 }}
+        ></img>
+        MINESWEEPER
+      </p>
       <Header onNewGameClick={handleNewGameClick}></Header>
       <Collapse in={game.id > 0}>
         <Game key={game.id} game={game}></Game>
