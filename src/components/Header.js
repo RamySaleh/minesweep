@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import HeightIcon from "@material-ui/icons/Height";
+import Button from "@material-ui/core/Button";
 import * as Constants from "../constants";
 
 const Header = (props) => {
@@ -27,46 +28,51 @@ const Header = (props) => {
       }}
     >
       <div>
-        <button
+        <Button
+          variant="outlined"
           onClick={() =>
             handleNewGameButtonClick({
               type: Constants.GamePresetRegular,
               level: 1,
             })
           }
-          style={{ marginRight: 10 }}
+          style={{ marginRight: 10, backgroundColor: "sandybrown" }}
         >
           Beginner
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="outlined"
           onClick={() =>
             handleNewGameButtonClick({
               type: Constants.GamePresetRegular,
               level: 2,
             })
           }
-          style={{ marginRight: 10 }}
+          style={{ marginRight: 10, backgroundColor: "sandybrown" }}
         >
           Intermediate
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="outlined"
           onClick={() =>
             handleNewGameButtonClick({
               type: Constants.GamePresetRegular,
               level: 3,
             })
           }
-          style={{ marginRight: 10 }}
+          style={{ marginRight: 10, backgroundColor: "sandybrown" }}
         >
           Expert
-        </button>
-        <button
+        </Button>
+        <Button
+          variant="outlined"
+          style={{ backgroundColor: "sandybrown" }}
           onClick={() => {
             setIsCustom(true);
           }}
         >
           Custom
-        </button>
+        </Button>
       </div>
       {isCustom && (
         <div

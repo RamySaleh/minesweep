@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
 
 const Box = (props) => {
   const [enabled, setEnabled] = useState(true);
@@ -8,8 +9,16 @@ const Box = (props) => {
     props.onClick(props.isBomb);
   };
   return (
-    <button
-      style={{ width: 40, height: 40, verticalAlign: "top" }}
+    <Button
+      variant="outlined"
+      disableElevation
+      style={{
+        width: 40,
+        height: 40,
+        verticalAlign: "top",
+        color: "grey",
+        backgroundColor: "palegoldenrod",
+      }}
       onClick={handleClick}
       disabled={!enabled}
     >
@@ -21,7 +30,7 @@ const Box = (props) => {
           style={{ width: 25, height: 25 }}
         ></img>
       )}
-    </button>
+    </Button>
   );
 };
 
