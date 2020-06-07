@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Game from "./Game";
+import Collapse from "@material-ui/core/Collapse";
 import { useDispatch } from "react-redux";
 import * as gameActions from "../actions/gameStatusActions";
 import "../App.css";
@@ -38,7 +39,9 @@ function App() {
     <div className="App">
       <p>Minesweep game</p>
       <Header onNewGameClick={handleNewGameClick}></Header>
-      {game.id > 0 && <Game key={game.id} game={game}></Game>}
+      <Collapse in={game.id > 0}>
+        <Game key={game.id} game={game}></Game>
+      </Collapse>
       <Footer></Footer>
     </div>
   );
