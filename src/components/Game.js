@@ -4,13 +4,14 @@ import HeightIcon from "@material-ui/icons/Height";
 import { useDispatch } from "react-redux";
 import * as gameActions from "../actions/gameStatusActions";
 
-const Game = ({ game, onGameEnd }) => {
+const Game = ({ game }) => {
   const width = game.width;
   const height = game.height;
   const bombs = game.bombs;
 
   const [enabled, setEnabled] = useState(true);
   const [grid, setGrid] = useState([]);
+  const [clickedBoxes, setClickedBoxes] = useState(1);
 
   const dispatch = useDispatch();
 
@@ -19,6 +20,12 @@ const Game = ({ game, onGameEnd }) => {
     if (isBomb) {
       setEnabled(false);
       dispatch(gameActions.gameLost());
+    } else {
+      setClickedBoxes(clickedBoxes + 1);
+      if (clickedBoxes === game.width * game.height - game.bombs) {
+        setEnabled(false);
+        dispatch(gameActions.gameWon());
+      }
     }
   };
 

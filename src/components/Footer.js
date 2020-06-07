@@ -23,11 +23,16 @@ const Footer = () => {
   useEffect(() => {
     if (gameStatus === constants.GameStatusStart) {
       setTimer(0);
+      setOpen(false);
     } else if (gameStatus === constants.GameStatusPlaying) {
+      setOpen(false);
       setTimeout(() => {
         setTimer(timer + 1);
       }, 1000);
-    } else if (gameStatus === constants.GameStatusLost) {
+    } else if (
+      gameStatus === constants.GameStatusLost ||
+      gameStatus === constants.GameStatusWon
+    ) {
       setOpen(true);
     }
   }, [timer, gameStatus]);
@@ -82,7 +87,7 @@ const Footer = () => {
       {showTimer() && (
         <text style={{ marginLeft: 20 }}>{formatTime(timer)}</text>
       )}
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
           severity={isGameWon() ? "success" : "error"}
