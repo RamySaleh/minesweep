@@ -186,9 +186,10 @@ const Game = ({ game }) => {
   };
 
   const renderGame = () => {
+    let rowCounter = 0;
     return grid.map((row) => {
       return (
-        <div>
+        <div key={rowCounter++}>
           {row.map((box) => {
             return (
               <Box
