@@ -27,10 +27,6 @@ const Game = ({ game }) => {
       dispatch(gameActions.gameLost());
     } else {
       setUsedBoxes(usedBoxes + 1);
-      if (usedBoxes === game.width * game.height - game.bombs) {
-        setEnabled(false);
-        dispatch(gameActions.gameWon());
-      }
     }
   };
 
@@ -48,6 +44,7 @@ const Game = ({ game }) => {
       setLabels(grid);
       flood(grid);
       setGrid(grid);
+      checkIfGameWon(grid);
     } else {
       // propagate the empty boxes
       let newGrid = grid.map((row) => {
@@ -62,6 +59,7 @@ const Game = ({ game }) => {
         newGrid[clickedBox.row][clickedBox.col].isEnabled = false;
       }
       setGrid(newGrid);
+      checkIfGameWon(grid);
     }
   }, [usedBoxes, clickedBox]);
 
@@ -169,6 +167,22 @@ const Game = ({ game }) => {
     dfs(grid, r, c + 1);
     dfs(grid, r + 1, c);
     dfs(grid, r - 1, c);
+  };
+
+  const checkIfGameWon = (grid) => {
+    let revealedBoxes = 0;
+    grid.forEach((row) => {
+      row.forEach((box) => {
+        if (!box.isEnabled) {
+          revealedBoxes++;
+        }
+      });
+    });
+
+    if (revealedBoxes === game.width * game.height - game.bombs) {
+      setEnabled(false);
+      dispatch(gameActions.gameWon());
+    }
   };
 
   const renderGame = () => {
