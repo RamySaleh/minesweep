@@ -154,9 +154,13 @@ const Game = ({ game }) => {
       r < 0 ||
       c < 0 ||
       c >= grid[0].length ||
-      grid[r][c].value !== "" ||
       !grid[r][c].isEnabled
     ) {
+      return;
+    }
+
+    if (grid[r][c].value !== "") {
+      grid[r][c].isEnabled = false;
       return;
     }
 
