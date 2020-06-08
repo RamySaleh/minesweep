@@ -12,12 +12,17 @@ const Game = ({ game }) => {
   const [enabled, setEnabled] = useState(true);
   const [grid, setGrid] = useState([]);
   const [clickedBoxes, setClickedBoxes] = useState(1);
+  const [clickedBox, setClickedBox] = useState();
 
   const dispatch = useDispatch();
 
-  const handleBoxClick = (isBomb) => {
-    dispatch(gameActions.gamePlaying());
-    if (isBomb) {
+  const handleBoxClick = (box) => {
+    setClickedBox(box);
+    if (clickedBoxes === 1) {
+      dispatch(gameActions.gamePlaying());
+    }
+
+    if (box.isBomb) {
       setEnabled(false);
       dispatch(gameActions.gameLost());
     } else {
@@ -30,12 +35,18 @@ const Game = ({ game }) => {
   };
 
   useEffect(() => {
-    let grid = [];
-    initBoxes(grid);
-    initBombs(grid);
-    setLabels(grid);
-    setGrid(grid);
-  }, []);
+    if (clickedBoxes === 1) {
+      let grid = [];
+      initBoxes(grid);
+      setGrid(grid);
+    } else if (clickedBoxes === 2) {
+      let grid = [];
+      initBoxes(grid);
+      initBombs(grid);
+      setLabels(grid);
+      setGrid(grid);
+    }
+  }, [clickedBoxes]);
 
   const initBoxes = (grid) => {
     let i = 0;
@@ -44,6 +55,8 @@ const Game = ({ game }) => {
       for (let w = 0; w < width; w++) {
         row.push({
           id: i,
+          row: h,
+          col: w,
           value: "",
           isBomb: false,
         });
@@ -57,7 +70,11 @@ const Game = ({ game }) => {
     for (let i = 0; i < bombs; i++) {
       let randX = undefined;
       let randY = undefined;
-      while (!randX || grid[randY][randX].isBomb) {
+      while (
+        !randX ||
+        grid[randY][randX].isBomb ||
+        (randX === clickedBox.col && randY === clickedBox.row)
+      ) {
         randX = Math.floor(Math.random() * width);
         randY = Math.floor(Math.random() * height);
       }
@@ -117,6 +134,8 @@ const Game = ({ game }) => {
               <Box
                 title={box.value}
                 key={box.id}
+                row={box.row}
+                col={box.col}
                 isBomb={box.isBomb}
                 onClick={handleBoxClick}
               ></Box>

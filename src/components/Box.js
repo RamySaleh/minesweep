@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 
-const Box = (props) => {
+const Box = ({ title, isBomb, col, row, onClick }) => {
   const [enabled, setEnabled] = useState(true);
 
   const handleClick = () => {
     setEnabled(false);
-    props.onClick(props.isBomb);
+    onClick({ isBomb, row, col });
   };
   return (
     <Button
@@ -22,8 +22,8 @@ const Box = (props) => {
       onClick={handleClick}
       disabled={!enabled}
     >
-      {!enabled && props.title}
-      {props.isBomb && !enabled && (
+      {!enabled && title}
+      {isBomb && !enabled && (
         <img
           src={require("../mine.png")}
           alt="bomb"
