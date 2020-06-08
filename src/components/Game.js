@@ -18,6 +18,8 @@ const Game = ({ game }) => {
 
   const handleBoxClick = (box) => {
     setClickedBox({ ...box, isEnabled: false });
+    setUsedBoxes(usedBoxes + 1);
+
     if (usedBoxes === 1) {
       dispatch(gameActions.gamePlaying());
     }
@@ -25,8 +27,6 @@ const Game = ({ game }) => {
     if (box.isBomb) {
       setEnabled(false);
       dispatch(gameActions.gameLost());
-    } else {
-      setUsedBoxes(usedBoxes + 1);
     }
   };
 
@@ -44,7 +44,7 @@ const Game = ({ game }) => {
       setLabels(grid);
       flood(grid);
       setGrid(grid);
-      checkIfGameWon(grid);
+      //checkIfGameWon(grid);
     } else {
       // propagate the empty boxes
       let newGrid = grid.map((row) => {

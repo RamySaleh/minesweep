@@ -26,7 +26,12 @@ const Box = ({ value, isBomb, col, row, onClick, isEnabled, boxSize }) => {
         <img
           src={require("../mine.png")}
           alt="bomb"
-          style={{ width: boxSize * 0.5, height: boxSize * 0.5 }}
+          style={{
+            maxWidth: 30,
+            maxHeight: 30,
+            width: boxSize * 0.5,
+            height: boxSize * 0.5,
+          }}
         ></img>
       )}
     </Button>
