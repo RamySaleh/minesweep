@@ -2,10 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 
 const Box = ({ value, isBomb, col, row, onClick, isEnabled }) => {
-  //const [enabled, setEnabled] = useState(isEnabled);
-
   const handleClick = () => {
-    //setEnabled(false);
     onClick({ isBomb, row, col, value });
   };
   return (
