@@ -59,7 +59,9 @@ const Game = ({ game }) => {
         newGrid[clickedBox.row][clickedBox.col].isEnabled = false;
       }
       setGrid(newGrid);
-      checkIfGameWon(grid);
+      if (enabled) {
+        checkIfGameWon(grid);
+      }
     }
   }, [usedBoxes, clickedBox]);
 

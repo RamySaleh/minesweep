@@ -16,8 +16,8 @@ function App() {
   const initialGame = {
     id: 0,
     width: 4,
-    height: 4,
-    bombs: 1,
+    height: 5,
+    bombs: 3,
   };
 
   const [game, setGame] = useState(initialGame);
@@ -82,7 +82,7 @@ function App() {
       <IconButton
         color="primary"
         component="span"
-        style={{ position: "absolute", top: 70, left: 0 }}
+        style={{ position: "absolute", top: 20, left: 0 }}
         onClick={() => {
           handleMusicClick(!playMusic);
         }}
