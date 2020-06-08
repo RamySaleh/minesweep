@@ -11,14 +11,14 @@ const Game = ({ game }) => {
 
   const [enabled, setEnabled] = useState(true);
   const [grid, setGrid] = useState([]);
-  const [clickedBoxes, setClickedBoxes] = useState(1);
+  const [usedBoxes, setUsedBoxes] = useState(1);
   const [clickedBox, setClickedBox] = useState();
 
   const dispatch = useDispatch();
 
   const handleBoxClick = (box) => {
-    setClickedBox(box);
-    if (clickedBoxes === 1) {
+    setClickedBox({ ...box, isEnabled: false });
+    if (usedBoxes === 1) {
       dispatch(gameActions.gamePlaying());
     }
 
@@ -26,8 +26,8 @@ const Game = ({ game }) => {
       setEnabled(false);
       dispatch(gameActions.gameLost());
     } else {
-      setClickedBoxes(clickedBoxes + 1);
-      if (clickedBoxes === game.width * game.height - game.bombs) {
+      setUsedBoxes(usedBoxes + 1);
+      if (usedBoxes === game.width * game.height - game.bombs) {
         setEnabled(false);
         dispatch(gameActions.gameWon());
       }
@@ -35,18 +35,35 @@ const Game = ({ game }) => {
   };
 
   useEffect(() => {
-    if (clickedBoxes === 1) {
+    if (usedBoxes === 1) {
+      // initial game state
       let grid = [];
       initBoxes(grid);
       setGrid(grid);
-    } else if (clickedBoxes === 2) {
+    } else if (usedBoxes === 2) {
+      // generate the game on first click
       let grid = [];
       initBoxes(grid);
       initBombs(grid);
       setLabels(grid);
+      flood(grid);
       setGrid(grid);
+    } else {
+      // propagate the empty boxes
+      let newGrid = grid.map((row) => {
+        return row.map((box) => {
+          return box;
+        });
+      });
+
+      if (clickedBox.value === "") {
+        flood(newGrid);
+      } else {
+        newGrid[clickedBox.row][clickedBox.col].isEnabled = false;
+      }
+      setGrid(newGrid);
     }
-  }, [clickedBoxes]);
+  }, [usedBoxes, clickedBox]);
 
   const initBoxes = (grid) => {
     let i = 0;
@@ -58,6 +75,7 @@ const Game = ({ game }) => {
           row: h,
           col: w,
           value: "",
+          isEnabled: true,
           isBomb: false,
         });
         i++;
@@ -125,6 +143,30 @@ const Game = ({ game }) => {
     }
   };
 
+  const flood = (grid) => {
+    dfs(grid, clickedBox.row, clickedBox.col);
+    grid[clickedBox.row][clickedBox.col].isEnabled = false;
+  };
+
+  const dfs = (grid, r, c) => {
+    if (
+      r >= grid.length ||
+      r < 0 ||
+      c < 0 ||
+      c >= grid[0].length ||
+      grid[r][c].value !== "" ||
+      !grid[r][c].isEnabled
+    ) {
+      return;
+    }
+
+    grid[r][c].isEnabled = false;
+    dfs(grid, r, c - 1);
+    dfs(grid, r, c + 1);
+    dfs(grid, r + 1, c);
+    dfs(grid, r - 1, c);
+  };
+
   const renderGame = () => {
     return grid.map((row) => {
       return (
@@ -132,11 +174,12 @@ const Game = ({ game }) => {
           {row.map((box) => {
             return (
               <Box
-                title={box.value}
+                value={box.value}
                 key={box.id}
                 row={box.row}
                 col={box.col}
                 isBomb={box.isBomb}
+                isEnabled={box.isEnabled}
                 onClick={handleBoxClick}
               ></Box>
             );

@@ -17,7 +17,7 @@ function App() {
     id: 0,
     width: 4,
     height: 4,
-    bombs: 5,
+    bombs: 1,
   };
 
   const [game, setGame] = useState(initialGame);
