@@ -16,8 +16,9 @@ function App() {
   const initialGame = {
     id: 0,
     width: 4,
-    height: 5,
+    height: 6,
     bombs: 3,
+    boxSize: 80,
   };
 
   const [game, setGame] = useState(initialGame);
@@ -32,10 +33,12 @@ function App() {
   const handleNewGameClick = (preset) => {
     const newGame = {};
     newGame.id = game.id + 1;
+    newGame.boxSize = game.boxSize;
     if (preset.type === Constants.GamePresetRegular) {
       newGame.width = initialGame.width * preset.level;
       newGame.height = initialGame.height * preset.level;
       newGame.bombs = initialGame.bombs * preset.level;
+      newGame.boxSize = initialGame.boxSize / preset.level;
     } else {
       newGame.width = preset.width;
       newGame.height = preset.height;

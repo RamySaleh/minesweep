@@ -199,6 +199,7 @@ const Game = ({ game }) => {
                 key={box.id}
                 row={box.row}
                 col={box.col}
+                boxSize={game.boxSize}
                 isBomb={box.isBomb}
                 isEnabled={box.isEnabled}
                 onClick={handleBoxClick}

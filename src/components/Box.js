@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 
-const Box = ({ value, isBomb, col, row, onClick, isEnabled }) => {
+const Box = ({ value, isBomb, col, row, onClick, isEnabled, boxSize }) => {
   const handleClick = () => {
     onClick({ isBomb, row, col, value });
   };
@@ -10,8 +10,10 @@ const Box = ({ value, isBomb, col, row, onClick, isEnabled }) => {
       variant="outlined"
       disableElevation
       style={{
-        width: 40,
-        height: 40,
+        width: boxSize,
+        height: boxSize,
+        minWidth: boxSize,
+        minHeight: boxSize,
         verticalAlign: "top",
         color: "#0E547B",
         backgroundColor: isEnabled ? "#8FCEEF" : "#6FC2EE",
@@ -24,7 +26,7 @@ const Box = ({ value, isBomb, col, row, onClick, isEnabled }) => {
         <img
           src={require("../mine.png")}
           alt="bomb"
-          style={{ width: 25, height: 25 }}
+          style={{ width: boxSize * 0.5, height: boxSize * 0.5 }}
         ></img>
       )}
     </Button>
