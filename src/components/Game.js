@@ -17,7 +17,7 @@ const Game = ({ game }) => {
   const dispatch = useDispatch();
 
   const handleBoxClick = (box) => {
-    setClickedBox({ ...box, isEnabled: false });
+    setClickedBox(box);
     setUsedBoxes(usedBoxes + 1);
 
     if (usedBoxes === 1) {
@@ -32,15 +32,15 @@ const Game = ({ game }) => {
 
   useEffect(() => {
     if (usedBoxes === 0) {
-      // initial game state
+      // Initial game state
       let grid = [];
       initBoxes(grid);
       setGrid(grid);
     } else if (usedBoxes === 1) {
-      // generate the game on first click
+      // First click
       generateGame();
     } else {
-      // flood
+      // Subsequent clicks
       floodOnClick(grid);
     }
   }, [usedBoxes, clickedBox]);
@@ -55,11 +55,7 @@ const Game = ({ game }) => {
   };
 
   const floodOnClick = (grid) => {
-    let newGrid = grid.map((row) => {
-      return row.map((box) => {
-        return box;
-      });
-    });
+    let newGrid = cloneGrid(grid);
 
     if (clickedBox.value === "") {
       floodBoxes(newGrid);
@@ -176,6 +172,15 @@ const Game = ({ game }) => {
     dfs(grid, r, c + 1);
     dfs(grid, r + 1, c);
     dfs(grid, r - 1, c);
+  };
+
+  const cloneGrid = (grid) => {
+    let clone = grid.map((row) => {
+      return row.map((box) => {
+        return box;
+      });
+    });
+    return clone;
   };
 
   const checkIfGameWon = (grid) => {
