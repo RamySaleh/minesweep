@@ -76,6 +76,7 @@ const Header = (props) => {
       </div>
       {isCustom && (
         <div
+          data-testid="custom-panel"
           style={{
             justifyContent: "space-between",
             display: "flex",

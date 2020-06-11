@@ -1,6 +1,4 @@
-import Game from "../Game";
 import * as gameLogic from "../logic/gameLogic";
-import { render } from "@testing-library/react";
 
 describe("Game Component", () => {
   let grid = [];
