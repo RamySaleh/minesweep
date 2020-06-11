@@ -11,16 +11,16 @@ const Game = ({ game }) => {
 
   const [enabled, setEnabled] = useState(true);
   const [grid, setGrid] = useState([]);
-  const [usedBoxes, setUsedBoxes] = useState(0);
+  const [clicks, setClicks] = useState(0);
   const [clickedBox, setClickedBox] = useState();
 
   const dispatch = useDispatch();
 
   const handleBoxClick = (box) => {
     setClickedBox(box);
-    setUsedBoxes(usedBoxes + 1);
+    setClicks(clicks + 1);
 
-    if (usedBoxes === 1) {
+    if (clicks === 1) {
       dispatch(gameActions.gamePlaying());
     }
 
@@ -31,19 +31,19 @@ const Game = ({ game }) => {
   };
 
   useEffect(() => {
-    if (usedBoxes === 0) {
+    if (clicks === 0) {
       // Initial game state
       let grid = [];
       initBoxes(grid);
       setGrid(grid);
-    } else if (usedBoxes === 1) {
+    } else if (clicks === 1) {
       // First click
       generateGame();
     } else {
       // Subsequent clicks
       floodOnClick(grid);
     }
-  }, [usedBoxes, clickedBox]);
+  }, [clicks, clickedBox]);
 
   const generateGame = () => {
     let grid = [];
@@ -60,9 +60,11 @@ const Game = ({ game }) => {
     if (clickedBox.value === "") {
       floodBoxes(newGrid);
     } else {
-      newGrid[clickedBox.row][clickedBox.col].isEnabled = false;
+      disableBox(newGrid, clickedBox.row, clickedBox.col);
     }
+
     setGrid(newGrid);
+
     if (enabled) {
       checkIfGameWon(grid);
     }
@@ -148,7 +150,7 @@ const Game = ({ game }) => {
 
   const floodBoxes = (grid) => {
     dfs(grid, clickedBox.row, clickedBox.col);
-    grid[clickedBox.row][clickedBox.col].isEnabled = false;
+    disableBox(grid, clickedBox.row, clickedBox.col);
   };
 
   const dfs = (grid, r, c) => {
@@ -163,11 +165,11 @@ const Game = ({ game }) => {
     }
 
     if (grid[r][c].value !== "") {
-      grid[r][c].isEnabled = false;
+      disableBox(grid, r, c);
       return;
     }
 
-    grid[r][c].isEnabled = false;
+    disableBox(grid, r, c);
     dfs(grid, r, c - 1);
     dfs(grid, r, c + 1);
     dfs(grid, r + 1, c);
@@ -181,6 +183,10 @@ const Game = ({ game }) => {
       });
     });
     return clone;
+  };
+
+  const disableBox = (grid, row, col) => {
+    grid[row][col].isEnabled = false;
   };
 
   const checkIfGameWon = (grid) => {
