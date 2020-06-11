@@ -4,13 +4,13 @@ import Footer from "./Footer";
 import Game from "./Game";
 import Collapse from "@material-ui/core/Collapse";
 import ReactPlayer from "react-player";
-import { useDispatch } from "react-redux";
-import * as gameActions from "../actions/gameStatusActions";
-import "./css/App.css";
-import * as Constants from "../constants";
 import IconButton from "@material-ui/core/IconButton";
 import PlayArrow from "@material-ui/icons/PlayArrow";
 import Pause from "@material-ui/icons/Pause";
+import { useDispatch } from "react-redux";
+import * as gameActions from "../actions/gameStatusActions";
+import * as Constants from "../constants";
+import "./css/App.css";
 
 function App() {
   const initialGame = {

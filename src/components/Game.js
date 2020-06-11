@@ -22,7 +22,7 @@ const Game = ({ game }) => {
     setClickedBox(box);
     setClicks(clicks + 1);
 
-    if (clicks === 1) {
+    if (clicks === 0) {
       dispatch(gameActions.gamePlaying());
     }
 
