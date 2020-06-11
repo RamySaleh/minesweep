@@ -48,7 +48,7 @@ const Game = ({ game }) => {
 
   const generateGame = () => {
     let grid = gameLogic.initBoxes(width, height);
-    gameLogic.initBombs(grid, width, height, bombs, clickedBox);
+    gameLogic.initBombs(grid, game, clickedBox);
     gameLogic.setLabels(grid, width, height);
     gameLogic.floodBoxes(grid, clickedBox);
     setGrid(grid);

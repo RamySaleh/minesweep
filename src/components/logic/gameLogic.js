@@ -19,8 +19,8 @@ export const initBoxes = (width, height) => {
   return grid;
 };
 
-export const initBombs = (grid, width, height, bombs, clickedBox) => {
-  for (let i = 0; i < bombs; i++) {
+export const initBombs = (grid, game, clickedBox) => {
+  for (let i = 0; i < game.bombs; i++) {
     let randX = undefined;
     let randY = undefined;
     while (
@@ -28,8 +28,8 @@ export const initBombs = (grid, width, height, bombs, clickedBox) => {
       grid[randY][randX].isBomb ||
       (randX === clickedBox.col && randY === clickedBox.row)
     ) {
-      randX = Math.floor(Math.random() * width);
-      randY = Math.floor(Math.random() * height);
+      randX = Math.floor(Math.random() * game.width);
+      randY = Math.floor(Math.random() * game.height);
     }
     grid[randY][randX].isBomb = true;
   }
