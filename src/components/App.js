@@ -6,7 +6,7 @@ import Collapse from "@material-ui/core/Collapse";
 import ReactPlayer from "react-player";
 import { useDispatch } from "react-redux";
 import * as gameActions from "../actions/gameStatusActions";
-import "../App.css";
+import "./css/App.css";
 import * as Constants from "../constants";
 import IconButton from "@material-ui/core/IconButton";
 import PlayArrow from "@material-ui/icons/PlayArrow";
