@@ -38,32 +38,39 @@ const Game = ({ game }) => {
       setGrid(grid);
     } else if (usedBoxes === 1) {
       // generate the game on first click
-      let grid = [];
-      initBoxes(grid);
-      initBombs(grid);
-      setLabels(grid);
-      flood(grid);
-      setGrid(grid);
-      //checkIfGameWon(grid);
+      generateGame();
     } else {
-      // propagate the empty boxes
-      let newGrid = grid.map((row) => {
-        return row.map((box) => {
-          return box;
-        });
-      });
-
-      if (clickedBox.value === "") {
-        flood(newGrid);
-      } else {
-        newGrid[clickedBox.row][clickedBox.col].isEnabled = false;
-      }
-      setGrid(newGrid);
-      if (enabled) {
-        checkIfGameWon(grid);
-      }
+      // flood
+      floodOnClick(grid);
     }
   }, [usedBoxes, clickedBox]);
+
+  const generateGame = () => {
+    let grid = [];
+    initBoxes(grid);
+    initBombs(grid);
+    setLabels(grid);
+    floodBoxes(grid);
+    setGrid(grid);
+  };
+
+  const floodOnClick = (grid) => {
+    let newGrid = grid.map((row) => {
+      return row.map((box) => {
+        return box;
+      });
+    });
+
+    if (clickedBox.value === "") {
+      floodBoxes(newGrid);
+    } else {
+      newGrid[clickedBox.row][clickedBox.col].isEnabled = false;
+    }
+    setGrid(newGrid);
+    if (enabled) {
+      checkIfGameWon(grid);
+    }
+  };
 
   const initBoxes = (grid) => {
     let i = 0;
@@ -143,7 +150,7 @@ const Game = ({ game }) => {
     }
   };
 
-  const flood = (grid) => {
+  const floodBoxes = (grid) => {
     dfs(grid, clickedBox.row, clickedBox.col);
     grid[clickedBox.row][clickedBox.col].isEnabled = false;
   };
