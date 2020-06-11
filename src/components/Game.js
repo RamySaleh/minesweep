@@ -11,7 +11,7 @@ const Game = ({ game }) => {
 
   const [enabled, setEnabled] = useState(true);
   const [grid, setGrid] = useState([]);
-  const [usedBoxes, setUsedBoxes] = useState(1);
+  const [usedBoxes, setUsedBoxes] = useState(0);
   const [clickedBox, setClickedBox] = useState();
 
   const dispatch = useDispatch();
@@ -31,12 +31,12 @@ const Game = ({ game }) => {
   };
 
   useEffect(() => {
-    if (usedBoxes === 1) {
+    if (usedBoxes === 0) {
       // initial game state
       let grid = [];
       initBoxes(grid);
       setGrid(grid);
-    } else if (usedBoxes === 2) {
+    } else if (usedBoxes === 1) {
       // generate the game on first click
       let grid = [];
       initBoxes(grid);
