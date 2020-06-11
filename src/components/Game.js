@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Box from "./Box";
 import HeightIcon from "@material-ui/icons/Height";
+import "./css/Game.css";
 import { useDispatch } from "react-redux";
 import * as gameActions from "../actions/gameStatusActions";
 import * as gameLogic from "./logic/gameLogic";
@@ -98,23 +99,19 @@ const Game = ({ game }) => {
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "center", margin: 10 }}>
-        <HeightIcon></HeightIcon>
-        <text style={{ marginLeft: 5 }}>{game.height}</text>
-        <HeightIcon
-          style={{ transform: "rotate(90deg)", marginLeft: 20 }}
-        ></HeightIcon>
-        <text style={{ marginLeft: 5 }}>{game.width}</text>
+      <div className="Game-header">
+        <HeightIcon />
+        <text className="Text">{game.height}</text>
+        <HeightIcon className="Width-icon" />
+        <text className="Text">{game.width}</text>
         <img
           src={require("../mine.png")}
           alt="bomb"
-          style={{ width: 20, height: 20, marginLeft: 20 }}
+          className="Mine-icon"
         ></img>
-        <text style={{ marginLeft: 5 }}>{game.bombs}</text>
+        <text className="Text">{game.bombs}</text>
       </div>
-      <div style={enabled ? {} : { pointerEvents: "none", opacity: "0.6" }}>
-        {renderGame()}
-      </div>
+      <div className={enabled ? "" : "Game-disabled"}>{renderGame()}</div>
     </>
   );
 };

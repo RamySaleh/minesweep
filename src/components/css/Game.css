@@ -1,0 +1,25 @@
+.Game-header {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.Text {
+  margin-left: 5px;
+}
+
+.Mine-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 20px;
+}
+
+.Width-icon {
+  transform: rotateZ(90deg);
+  margin-left: 20px;
+}
+
+.Game-disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
