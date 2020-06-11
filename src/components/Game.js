@@ -3,6 +3,7 @@ import Box from "./Box";
 import HeightIcon from "@material-ui/icons/Height";
 import { useDispatch } from "react-redux";
 import * as gameActions from "../actions/gameStatusActions";
+import * as gameLogic from "./logic/gameLogic";
 
 const Game = ({ game }) => {
   const width = game.width;
@@ -33,175 +34,41 @@ const Game = ({ game }) => {
   useEffect(() => {
     if (clicks === 0) {
       // Initial game state
-      let grid = [];
-      initBoxes(grid);
+      let grid = gameLogic.initBoxes(width, height);
       setGrid(grid);
     } else if (clicks === 1) {
       // First click
       generateGame();
     } else {
       // Subsequent clicks
-      floodOnClick(grid);
+      floodOnClick();
     }
   }, [clicks, clickedBox]);
 
   const generateGame = () => {
-    let grid = [];
-    initBoxes(grid);
-    initBombs(grid);
-    setLabels(grid);
-    floodBoxes(grid);
+    let grid = gameLogic.initBoxes(width, height);
+    gameLogic.initBombs(grid, width, height, bombs, clickedBox);
+    gameLogic.setLabels(grid, width, height);
+    gameLogic.floodBoxes(grid, clickedBox);
     setGrid(grid);
   };
 
-  const floodOnClick = (grid) => {
-    let newGrid = cloneGrid(grid);
+  const floodOnClick = () => {
+    let newGrid = gameLogic.cloneGrid(grid);
 
     if (clickedBox.value === "") {
-      floodBoxes(newGrid);
+      gameLogic.floodBoxes(newGrid, clickedBox);
     } else {
-      disableBox(newGrid, clickedBox.row, clickedBox.col);
+      gameLogic.disableBox(newGrid, clickedBox.row, clickedBox.col);
     }
 
     setGrid(newGrid);
 
     if (enabled) {
-      checkIfGameWon(grid);
-    }
-  };
-
-  const initBoxes = (grid) => {
-    let i = 0;
-    for (let h = 0; h < height; h++) {
-      const row = [];
-      for (let w = 0; w < width; w++) {
-        row.push({
-          id: i,
-          row: h,
-          col: w,
-          value: "",
-          isEnabled: true,
-          isBomb: false,
-        });
-        i++;
+      if (gameLogic.checkIfGameWon(grid, game)) {
+        setEnabled(false);
+        dispatch(gameActions.gameWon());
       }
-      grid.push(row);
-    }
-  };
-
-  const initBombs = (grid) => {
-    for (let i = 0; i < bombs; i++) {
-      let randX = undefined;
-      let randY = undefined;
-      while (
-        !randX ||
-        grid[randY][randX].isBomb ||
-        (randX === clickedBox.col && randY === clickedBox.row)
-      ) {
-        randX = Math.floor(Math.random() * width);
-        randY = Math.floor(Math.random() * height);
-      }
-      grid[randY][randX].isBomb = true;
-    }
-  };
-
-  const setLabels = (grid) => {
-    for (let h = 0; h < height; h++) {
-      for (let w = 0; w < width; w++) {
-        let value = 0;
-        if (!grid[h][w].isBomb) {
-          // up
-          if (h > 0 && grid[h - 1][w].isBomb) {
-            value++;
-          }
-          // up left
-          if (h > 0 && w > 0 && grid[h - 1][w - 1].isBomb) {
-            value++;
-          }
-          // up right
-          if (h > 0 && w < width - 1 && grid[h - 1][w + 1].isBomb) {
-            value++;
-          }
-          // right
-          if (w < width - 1 && grid[h][w + 1].isBomb) {
-            value++;
-          }
-          // right down
-          if (h < height - 1 && w < width - 1 && grid[h + 1][w + 1].isBomb) {
-            value++;
-          }
-          // down
-          if (h < height - 1 && grid[h + 1][w].isBomb) {
-            value++;
-          }
-          // left down
-          if (h < height - 1 && w > 0 && grid[h + 1][w - 1].isBomb) {
-            value++;
-          }
-          // left
-          if (w > 0 && grid[h][w - 1].isBomb) {
-            value++;
-          }
-          grid[h][w].value = value > 0 ? value : "";
-        }
-      }
-    }
-  };
-
-  const floodBoxes = (grid) => {
-    dfs(grid, clickedBox.row, clickedBox.col);
-    disableBox(grid, clickedBox.row, clickedBox.col);
-  };
-
-  const dfs = (grid, r, c) => {
-    if (
-      r >= grid.length ||
-      r < 0 ||
-      c < 0 ||
-      c >= grid[0].length ||
-      !grid[r][c].isEnabled
-    ) {
-      return;
-    }
-
-    if (grid[r][c].value !== "") {
-      disableBox(grid, r, c);
-      return;
-    }
-
-    disableBox(grid, r, c);
-    dfs(grid, r, c - 1);
-    dfs(grid, r, c + 1);
-    dfs(grid, r + 1, c);
-    dfs(grid, r - 1, c);
-  };
-
-  const cloneGrid = (grid) => {
-    let clone = grid.map((row) => {
-      return row.map((box) => {
-        return box;
-      });
-    });
-    return clone;
-  };
-
-  const disableBox = (grid, row, col) => {
-    grid[row][col].isEnabled = false;
-  };
-
-  const checkIfGameWon = (grid) => {
-    let revealedBoxes = 0;
-    grid.forEach((row) => {
-      row.forEach((box) => {
-        if (!box.isEnabled) {
-          revealedBoxes++;
-        }
-      });
-    });
-
-    if (revealedBoxes === game.width * game.height - game.bombs) {
-      setEnabled(false);
-      dispatch(gameActions.gameWon());
     }
   };
 
