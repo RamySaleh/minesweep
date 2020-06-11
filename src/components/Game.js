@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import Box from "./Box";
 import HeightIcon from "@material-ui/icons/Height";
-import "./css/Game.css";
-import { useDispatch } from "react-redux";
 import * as gameActions from "../actions/gameStatusActions";
 import * as gameLogic from "./logic/gameLogic";
+import "./css/Game.css";
 
 const Game = ({ game }) => {
   const width = game.width;
