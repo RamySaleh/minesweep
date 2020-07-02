@@ -14,6 +14,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Pause from "@material-ui/icons/Pause";
 import PlayArrow from "@material-ui/icons/PlayArrow";
 import ReactPlayer from "react-player";
+import { Toggle } from "office-ui-fabric-react/lib/Toggle";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
@@ -28,6 +29,8 @@ function App() {
 
   const [game, setGame] = useState(initialGame);
   const [playMusic, setPlayMusic] = useState(false);
+  const [showColorPicker, setShowColorPicker] = useState(false);
+
   const theme = useSelector((state) => state.themeChangeReducer);
 
   const handleMusicClick = (play) => {
@@ -54,6 +57,11 @@ function App() {
     dispatch(gameActions.gameStart());
   };
 
+  function _onChange(ev, checked) {
+    setShowColorPicker(checked);
+    console.log(checked);
+  }
+
   return (
     <div className="App">
       <p
@@ -75,8 +83,25 @@ function App() {
         ></img>
         MINESWEEPER
       </p>
+      <div
+        style={{
+          position: "absolute",
+          top: 35,
+          left: 60,
+          color: Constants.InitialColor,
+        }}
+      >
+        <Toggle
+          label=""
+          defaultChecked={false}
+          onText=""
+          offText=""
+          inlineLabel
+          onChange={_onChange}
+        />
+      </div>
       <Header onNewGameClick={handleNewGameClick}></Header>
-      <ColorPickerExample />
+      {showColorPicker && <ColorPickerExample />}
       <Collapse in={game.id > 0}>
         <Game key={game.id} game={game}></Game>
       </Collapse>
@@ -88,7 +113,6 @@ function App() {
         playing={playMusic}
         style={{ position: "absolute", bottom: 0, opacity: 0 }}
       />
-
       <IconButton
         color="primary"
         component="span"
