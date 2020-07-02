@@ -1,7 +1,7 @@
 import * as actions from "../actions/actions";
 import * as constants from "../constants";
 
-const colorChangeReducer = (state = constants.InitialColor, action) => {
+const themeChangeReducer = (state = constants.InitialColor, action) => {
   switch (action.type) {
     case actions.COLOR_CHANGED:
       return action.payload;
@@ -10,4 +10,4 @@ const colorChangeReducer = (state = constants.InitialColor, action) => {
   }
 };
 
-export default colorChangeReducer;
+export default themeChangeReducer;

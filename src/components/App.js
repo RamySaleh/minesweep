@@ -28,7 +28,7 @@ function App() {
 
   const [game, setGame] = useState(initialGame);
   const [playMusic, setPlayMusic] = useState(false);
-  const color = useSelector((state) => state.colorChangeReducer);
+  const theme = useSelector((state) => state.themeChangeReducer);
 
   const handleMusicClick = (play) => {
     setPlayMusic(play);
@@ -61,9 +61,9 @@ function App() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          color: "#0E547B",
+          color: theme.fontColor ? theme.fontColor : "#0E547B",
           height: 50,
-          backgroundColor: color ? color : Constants.InitialColor,
+          backgroundColor: theme.color ? theme.color : Constants.InitialColor,
           fontSize: 20,
           fontWeight: "bold",
         }}

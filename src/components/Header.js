@@ -1,13 +1,18 @@
-import React, { useState } from "react";
-import HeightIcon from "@material-ui/icons/Height";
-import Button from "@material-ui/core/Button";
 import * as Constants from "../constants";
+
+import React, { useState } from "react";
+
+import Button from "@material-ui/core/Button";
+import HeightIcon from "@material-ui/icons/Height";
+import { useSelector } from "react-redux";
 
 const Header = (props) => {
   const [width, setWidth] = useState();
   const [height, setheight] = useState();
   const [bombs, setBombs] = useState();
   const [isCustom, setIsCustom] = useState();
+
+  const theme = useSelector((state) => state.themeChangeReducer);
 
   const handleTextChange = (value, handler) => {
     handler(value);
@@ -36,7 +41,10 @@ const Header = (props) => {
               level: 1,
             })
           }
-          style={{ marginRight: 10, backgroundColor: "#6FC2EE" }}
+          style={{
+            marginRight: 10,
+            backgroundColor: theme.color ? theme.color : "#6FC2EE",
+          }}
         >
           Easy
         </Button>
@@ -48,7 +56,10 @@ const Header = (props) => {
               level: 2,
             })
           }
-          style={{ marginRight: 10, backgroundColor: "#6FC2EE" }}
+          style={{
+            marginRight: 10,
+            backgroundColor: theme.color ? theme.color : "#6FC2EE",
+          }}
         >
           Medium
         </Button>
@@ -60,13 +71,16 @@ const Header = (props) => {
               level: 3,
             })
           }
-          style={{ marginRight: 10, backgroundColor: "#6FC2EE" }}
+          style={{
+            marginRight: 10,
+            backgroundColor: theme.color ? theme.color : "#6FC2EE",
+          }}
         >
           Hard
         </Button>
         <Button
           variant="outlined"
-          style={{ backgroundColor: "#6FC2EE" }}
+          style={{ backgroundColor: theme.color ? theme.color : "#6FC2EE" }}
           onClick={() => {
             setIsCustom(true);
           }}

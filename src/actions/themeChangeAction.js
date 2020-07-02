@@ -1,8 +1,8 @@
 import * as actions from "./actions";
 
-export const colorChanged = (color) => {
+export const colorChanged = (theme) => {
   return {
     type: actions.COLOR_CHANGED,
-    payload: color,
+    payload: theme,
   };
 };

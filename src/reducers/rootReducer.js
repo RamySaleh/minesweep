@@ -1,10 +1,10 @@
-import colorChangeReducer from "./themeReducer";
 import { combineReducers } from "redux";
 import gameStatusReducer from "./gameStatusReducer";
+import themeChangeReducer from "./themeChangeReducer";
 
 const rootReducer = combineReducers({
   gameStatusReducer,
-  colorChangeReducer,
+  themeChangeReducer,
 });
 
 export default rootReducer;
