@@ -1,16 +1,21 @@
+import "./css/App.css";
+
+import * as Constants from "../constants";
+import * as gameActions from "../actions/gameStatusActions";
+
 import React, { useState } from "react";
-import Header from "./Header";
+
+import Collapse from "@material-ui/core/Collapse";
+import ColorPickerExample from "./ColorPicker";
 import Footer from "./Footer";
 import Game from "./Game";
-import Collapse from "@material-ui/core/Collapse";
-import ReactPlayer from "react-player";
+import Header from "./Header";
 import IconButton from "@material-ui/core/IconButton";
-import PlayArrow from "@material-ui/icons/PlayArrow";
 import Pause from "@material-ui/icons/Pause";
+import PlayArrow from "@material-ui/icons/PlayArrow";
+import ReactPlayer from "react-player";
 import { useDispatch } from "react-redux";
-import * as gameActions from "../actions/gameStatusActions";
-import * as Constants from "../constants";
-import "./css/App.css";
+import { useSelector } from "react-redux";
 
 function App() {
   const initialGame = {
@@ -23,6 +28,7 @@ function App() {
 
   const [game, setGame] = useState(initialGame);
   const [playMusic, setPlayMusic] = useState(false);
+  const color = useSelector((state) => state.colorChangeReducer);
 
   const handleMusicClick = (play) => {
     setPlayMusic(play);
@@ -57,7 +63,7 @@ function App() {
           alignItems: "center",
           color: "#0E547B",
           height: 50,
-          backgroundColor: "#8FCEEF",
+          backgroundColor: color ? color : Constants.InitialColor,
           fontSize: 20,
           fontWeight: "bold",
         }}
@@ -70,6 +76,7 @@ function App() {
         MINESWEEPER
       </p>
       <Header onNewGameClick={handleNewGameClick}></Header>
+      <ColorPickerExample />
       <Collapse in={game.id > 0}>
         <Game key={game.id} game={game}></Game>
       </Collapse>

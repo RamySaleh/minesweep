@@ -1,14 +1,13 @@
-import React from "react";
 import Button from "@material-ui/core/Button";
+import { PrimaryButton } from "@fluentui/react";
+import React from "react";
 
 const Box = ({ value, isBomb, col, row, onClick, isEnabled, boxSize }) => {
   const handleClick = () => {
     onClick({ isBomb, row, col, value });
   };
   return (
-    <Button
-      variant="outlined"
-      disableElevation
+    <PrimaryButton
       style={{
         width: boxSize,
         height: boxSize,
@@ -34,7 +33,7 @@ const Box = ({ value, isBomb, col, row, onClick, isEnabled, boxSize }) => {
           }}
         ></img>
       )}
-    </Button>
+    </PrimaryButton>
   );
 };
 
