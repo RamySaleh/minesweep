@@ -1,7 +1,12 @@
 import * as actions from "../actions/actions";
-import * as constants from "../constants";
 
-const themeChangeReducer = (state = constants.InitialColor, action) => {
+let theme = {
+  color: "#8FCEEF",
+  fontColor: "#0E547B",
+  disabledColor: "#6FC2EE",
+};
+
+const themeChangeReducer = (state = theme, action) => {
   switch (action.type) {
     case actions.COLOR_CHANGED:
       return action.payload;

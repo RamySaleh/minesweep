@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import Box from "./Box";
-import HeightIcon from "@material-ui/icons/Height";
+import "./css/Game.css";
+
 import * as gameActions from "../actions/gameStatusActions";
 import * as gameLogic from "./logic/gameLogic";
-import "./css/Game.css";
+
+import React, { useEffect, useState } from "react";
+
+import Box from "./Box";
+import HeightIcon from "@material-ui/icons/Height";
+import { useDispatch } from "react-redux";
 
 const Game = ({ game }) => {
   const width = game.width;
   const height = game.height;
-  const bombs = game.bombs;
 
   const [enabled, setEnabled] = useState(true);
   const [grid, setGrid] = useState([]);

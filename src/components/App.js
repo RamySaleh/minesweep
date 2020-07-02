@@ -59,7 +59,6 @@ function App() {
 
   function _onChange(ev, checked) {
     setShowColorPicker(checked);
-    console.log(checked);
   }
 
   return (
@@ -69,9 +68,9 @@ function App() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          color: theme.fontColor ? theme.fontColor : "#0E547B",
+          color: theme.fontColor,
           height: 50,
-          backgroundColor: theme.color ? theme.color : Constants.InitialColor,
+          backgroundColor: theme.color,
           fontSize: 20,
           fontWeight: "bold",
         }}
@@ -88,7 +87,7 @@ function App() {
           position: "absolute",
           top: 35,
           left: 60,
-          color: Constants.InitialColor,
+          color: theme.fontColor,
         }}
       >
         <Toggle
@@ -101,7 +100,7 @@ function App() {
         />
       </div>
       <Header onNewGameClick={handleNewGameClick}></Header>
-      {showColorPicker && <ColorPickerExample />}
+      {showColorPicker && <ColorPickerExample color={theme.color} />}
       <Collapse in={game.id > 0}>
         <Game key={game.id} game={game}></Game>
       </Collapse>

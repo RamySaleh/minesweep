@@ -1,4 +1,3 @@
-import * as Constants from "../constants";
 import * as themeActions from "../actions/themeChangeAction";
 
 import React, { useState } from "react";
@@ -8,10 +7,8 @@ import { mergeStyleSets } from "office-ui-fabric-react/lib/Styling";
 import { useConstCallback } from "@uifabric/react-hooks";
 import { useDispatch } from "react-redux";
 
-const white = Constants.InitialColor;
-
-const ColorPickerExample = () => {
-  const [color, setColor] = useState(white);
+const ColorPickerExample = (props) => {
+  const [color, setColor] = useState(props.color);
   const [alphaType] = useState("none");
 
   const dispatch = useDispatch();
@@ -52,12 +49,6 @@ const ColorPickerExample = () => {
   );
 };
 
-const alphaOptions = [
-  { key: "alpha", text: "Alpha" },
-  { key: "transparency", text: "Transparency" },
-  { key: "none", text: "None" },
-];
-
 const classNames = mergeStyleSets({
   wrapper: { display: "flex" },
   column2: { marginLeft: 10 },
@@ -85,9 +76,9 @@ function shadeColor(color, percent) {
   G = G < 255 ? G : 255;
   B = B < 255 ? B : 255;
 
-  var RR = R.toString(16).length == 1 ? "0" + R.toString(16) : R.toString(16);
-  var GG = G.toString(16).length == 1 ? "0" + G.toString(16) : G.toString(16);
-  var BB = B.toString(16).length == 1 ? "0" + B.toString(16) : B.toString(16);
+  var RR = R.toString(16).length === 1 ? "0" + R.toString(16) : R.toString(16);
+  var GG = G.toString(16).length === 1 ? "0" + G.toString(16) : G.toString(16);
+  var BB = B.toString(16).length === 1 ? "0" + B.toString(16) : B.toString(16);
 
   return "#" + RR + GG + BB;
 }
